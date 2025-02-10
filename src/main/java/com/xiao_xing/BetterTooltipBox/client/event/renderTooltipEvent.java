@@ -5,6 +5,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.gtnewhorizon.gtnhlib.client.event.RenderTooltipEvent;
+import com.xiao_xing.BetterTooltipBox.Config;
+import com.xiao_xing.BetterTooltipBox.Mixins.MixinPlugin;
 import com.xiao_xing.BetterTooltipBox.Util.TooltipHelper;
 
 import cpw.mods.fml.common.Loader;
@@ -22,7 +24,10 @@ public class renderTooltipEvent {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void renderTooltip(RenderTooltipEvent event) {
-        // event.setCanceled(false);
+        // 当NEI存在且开启兼容时，跳过自定义渲染
+        if (MixinPlugin.isNEILoaded && Config.Compatible_NEI) {
+            return;
+        }
 
         event.alternativeRenderer = (t) -> {
 
@@ -78,5 +83,4 @@ public class renderTooltipEvent {
 
         };
     }
-
 }
