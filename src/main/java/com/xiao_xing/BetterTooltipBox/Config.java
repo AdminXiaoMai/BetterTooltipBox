@@ -8,7 +8,8 @@ public class Config {
 
     public static boolean Enable_BetterTooltipBox = true;
     public static boolean Enable_SelectionBox = false;
-    public static boolean Compatible_NEI = true; // 新增NEI兼容开关
+    public static boolean NEI_Integration = true;
+    public static boolean NEI_CompactMode = false;
 
     public static void synchronizeConfiguration(File configFile) {
         Configuration configuration = new Configuration(configFile);
@@ -25,11 +26,14 @@ public class Config {
             Enable_SelectionBox,
             "Enable SelectionBox");
 
-        Compatible_NEI = configuration.getBoolean( // 新增配置项
-            "Compatible NEI",
-            Configuration.CATEGORY_GENERAL,
-            Compatible_NEI,
-            "Enable compatibility with NotEnoughItems mod");
+        NEI_Integration = configuration.getBoolean(
+            "NEI Integration",
+            "Compatibility",
+            NEI_Integration,
+            "Enable BetterTooltipBox in NEI interfaces");
+
+        NEI_CompactMode = configuration
+            .getBoolean("NEI Compact Mode", "Compatibility", NEI_CompactMode, "Use compact tooltip style in NEI");
 
         if (configuration.hasChanged()) {
             configuration.save();
