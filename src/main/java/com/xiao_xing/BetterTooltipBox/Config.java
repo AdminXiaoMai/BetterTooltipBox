@@ -8,6 +8,8 @@ public class Config {
 
     public static boolean Enable_BetterTooltipBox = true;
     public static boolean Enable_SelectionBox = false;
+    public static boolean NEI_Integration = true;
+    public static boolean NEI_CompactMode = false;
 
     public static void synchronizeConfiguration(File configFile) {
         Configuration configuration = new Configuration(configFile);
@@ -23,6 +25,15 @@ public class Config {
             Configuration.CATEGORY_GENERAL,
             Enable_SelectionBox,
             "Enable SelectionBox");
+
+        NEI_Integration = configuration.getBoolean(
+            "NEI Integration",
+            "Compatibility",
+            NEI_Integration,
+            "Enable BetterTooltipBox in NEI interfaces");
+
+        NEI_CompactMode = configuration
+            .getBoolean("NEI Compact Mode", "Compatibility", NEI_CompactMode, "Use compact tooltip style in NEI");
 
         if (configuration.hasChanged()) {
             configuration.save();

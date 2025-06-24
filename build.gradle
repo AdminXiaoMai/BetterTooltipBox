@@ -7,3 +7,7 @@ minecraft {
     extraRunJvmArguments.add("-Xmx4G")
     extraRunJvmArguments.add("-Xms2G")
 }
+dependencies {
+    implementation "com.github.GTNewHorizons:NotEnoughItems:2.7.55-GTNH-pre:dev"
+    implementation "com.github.GTNewHorizons:CodeChickenCore:1.4.3:dev"
+}

@@ -17,14 +17,25 @@ public class drawSelectionBoxMixin {
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/client/renderer/RenderGlobal;drawOutlinedBoundingBox(Lnet/minecraft/util/AxisAlignedBB;I)V"))
-    public void drawOutlinedBoundingBox(AxisAlignedBB p_147590_0_, int p_147590_1_) {
-        if (Enable_SelectionBox) {
+    public void drawOutlinedBoundingBox(AxisAlignedBB box, int color) {
+        // 仅在非 NEI 环境使用动态效果
+        if (Enable_SelectionBox && !isNEIEnvironment()) {
             float time = (System.currentTimeMillis() % 5000L) / 5000.0f * (float) (2 * Math.PI);
-            int color = (int) ((Math.sin(time) * 0.5f + 0.5f) * 255) << 16
+            int newColor = (int) ((Math.sin(time) * 0.5f + 0.5f) * 255) << 16
                 | (int) ((Math.cos(time) * 0.5f + 0.5f) * 255) << 8
                 | 128;
-            RenderGlobal.drawOutlinedBoundingBox(p_147590_0_, color);
+            RenderGlobal.drawOutlinedBoundingBox(box, newColor);
+        } else {
+            RenderGlobal.drawOutlinedBoundingBox(box, color);
         }
-        RenderGlobal.drawOutlinedBoundingBox(p_147590_0_, p_147590_1_);
+    }
+
+    private static boolean isNEIEnvironment() {
+        try {
+            Class.forName("codechicken.nei.LayoutManager");
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 }
