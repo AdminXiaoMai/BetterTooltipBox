@@ -6,7 +6,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import com.xiao_xing.BetterTooltipBox.Util.TooltipHelper;
 
-@Mixin(targets = "codechicken/nei/guihook/GuiContainerManager")
+import codechicken.nei.guihook.GuiContainerManager;
+
+@Mixin(GuiContainerManager.class)
 public class NEICompatibleTooltipMixin {
 
     @Redirect(
